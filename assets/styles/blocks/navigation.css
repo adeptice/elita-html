@@ -1,0 +1,246 @@
+/*
+--- Navigation
+*/
+
+.navigation {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: var(--menu);
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+  backdrop-filter: blur(0px);
+
+  transition: left 0.5s ease, backdrop-filter 0.25s linear, width 0s linear;
+  transition-delay: 0s, 0s, 0.5s;
+}
+
+.navigation--active {
+  width: calc(100% + var(--menu));
+  backdrop-filter: blur(10px);
+
+  transition-delay: 0s, 0s, 0s;
+}
+
+@media (max-width: 1600px) {
+  .navigation {
+    left: calc(-1 * var(--menu));
+  }
+
+  .navigation--active {
+    left: 0;
+  }
+}
+
+  .navigation__header {
+    box-sizing: border-box;
+    padding: var(--gap-third) var(--gap) 0;
+    position: fixed;
+    z-index: 100;
+    width: calc(var(--menu) - 1px);
+    /* background: linear-gradient(var(--surface) 75%, transparent); */
+  }
+
+  .navigation__column {
+    position: absolute;
+    z-index: 1;
+    width: var(--menu);
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    transform: translateX(0%);
+    transition: left 0.5s ease, transform 0.5s ease, z-index 0s linear;
+    transition-delay: 0s, 0s, 0s;
+  }
+
+    .navigation__column .navigation__column {
+      z-index: -1
+    }
+
+  .navigation__block {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    transition: width 0.5s ease;
+  }
+
+  .navigation__block[data-level='2'] > .navigation__column {
+    left: calc(-1 * var(--menu));
+  }
+
+  .navigation__block[data-level='3'] > .navigation__column {
+    left: calc(-2 * var(--menu));
+  }
+
+  @media (min-width: 961px) {
+    .navigation--active .navigation__block > .navigation__column {
+      left: 0
+    }
+  }
+
+  @media (max-width: 960px) {
+    .navigation__block {
+      position: absolute;
+      width: var(--menu);
+      height: 100%;
+    }
+
+    .navigation__column {
+      transition: left 0.5s ease, transform 0s ease, z-index 0s linear;
+      transition-delay: 0s, 0.5s, 0.5s;
+    }
+  }
+
+    .navigation__wrapper {
+      height: 100%;
+      border-right: 0.075rem solid var(--divider);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: calc(2.25 * var(--logo)) 0 var(--gap);
+      background-color: var(--surface);
+      overflow-y: auto;
+    }
+
+    .navigation__column--active,
+    .navigation__column .navigation__column--active {
+      transform: translateX(100%);
+      z-index: 2;
+
+      transition-delay: 0s, 0s, 0.5s;
+    }
+
+      .navigation__return {
+        margin: -2.75rem auto 0 0;
+        padding: 0.5rem 0.5rem 0.5rem var(--gap-third);
+        color: var(--text);
+        text-decoration: none;
+        position: relative;
+        /* opacity: 0;
+        visibility: hidden; */
+        background-image: url("../../images/ui_nav.svg#sblink");
+        background-repeat: no-repeat;
+        background-position: -0.75rem 50%;
+        background-size: 3rem 1.5rem;
+
+        transition: color 0.25s ease, opacity 0.5s ease, visibility 0.5s ease;
+      }
+
+        .navigation__return:hover {
+          color: var(--color-blue)
+        }
+
+      @media (max-width: 960px) {
+        .navigation__return {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+      .navigation__link {
+        padding: 0.75rem var(--gap-third);
+        background-image: url("../../images/ui_nav.svg#aflink");
+        background-repeat: no-repeat;
+        background-position: 100% 50%;
+        background-size: 3rem 1.5rem;
+        color: inherit;
+        text-decoration: none;
+        position: relative;
+
+        transition: color 0.25s ease;
+      }
+
+      .navigation__ext-link {
+        align-self: flex-start;
+        margin: 0 var(--gap-third);
+        padding: 0.5rem 0;
+        color: var(--text);
+        text-decoration: none;
+        position: relative;
+
+        transition: color 0.25s ease;
+      }
+
+        .navigation__ext-link--active,
+        .navigation__ext-link--current {
+          box-shadow: inset 0px -2px 0px 0px var(--grey-bg);
+        }
+
+        .navigation__ext-link:hover {
+          color: var(--color-blue);
+        }
+
+          .navigation__ext-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-blue);
+            transition: width 0.25s ease;
+          }
+
+          .navigation__ext-link:hover::after {
+            width: 100%;
+          }
+
+      .navigation__list {
+        padding: 0;
+        list-style: none;
+        height: 100%;
+      }
+
+        .navigation__item {
+          display: block;
+          padding: 0.75rem var(--gap-third);
+          color: inherit;
+          text-decoration: none;
+
+          transition: background-color 0.25s ease;
+        }
+
+        .navigation__item:hover:not(.navigation__item--current),
+        .navigation__link:hover:not(.navigation__link--current) {
+          background-color: var(--grey-bg)
+        }
+
+        .navigation__item-parent {
+          background-image: url("../../images/ui_nav.svg#sflink");
+          background-repeat: no-repeat;
+          background-position: 100% 50%;
+          background-size: 3rem 1.5rem;
+        }
+
+        .navigation__item--active {
+          background-color: var(--greyest-bg)
+        }
+
+        .navigation__item--current,
+        .navigation__link--current {
+          color: var(--surface);
+          background-color: var(--color-blue);
+          cursor: default;
+        }
+
+        .navigation__link--current{
+          background-image: url("../../images/ui_nav.svg#aflink_surface");
+        }
+
+  .navigation__footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: calc(var(--menu) - 1px);
+    height: var(--gap);
+    box-sizing: border-box;
+    padding: calc(var(--gap-third)/1.5) var(--gap-third);
+    /* background: linear-gradient(transparent, var(--surface) 35%); */
+  }
+
+  .navigation__footer-phone {
+    margin: 0.5rem 0;
+  }

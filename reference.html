@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+    <title>Reference template</title>
+
+    <!-- Общие стили для всех страниц -->
+    <link rel="stylesheet" href="./assets/styles/normalize.css">
+    <link rel="stylesheet" href="./assets/styles/main.css">
+    <link rel="stylesheet" href="./assets/styles/ui.css">
+    <link rel="stylesheet" href="./assets/styles/blocks/navigation.css">
+    <link rel="stylesheet" href="./assets/styles/blocks/controls.css">
+
+    <!-- Стиль только для страницы референса -->
+    <link rel="stylesheet" href="./assets/styles/blocks/reference.css">
+
+    <!-- Фреймворки. Есть на всех страницах -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1/dist/axios.min.js"></script>
+
+  </head>
+  <body>
+    <header class="controls" id="controls"></header>
+    <nav class="navigation" id="navigation">
+      <header class="navigation__header">
+        <img class="logo" src="./assets/images/elita_logo.svg" alt="Компания Элита" title="Компания Элита">
+      </header>
+      <div class="navigation__block">
+        <div class="navigation__column">
+          <div class="navigation__wrapper">
+            <a class="navigation__ext-link navigation__ext-link--current" href="#">Компания Элита</a>
+            <ul class="navigation__list">
+              <li>
+                <a class="navigation__item" href="#">Что мы&nbsp;делаем</a>
+              </li>
+              <li>
+                <a class="navigation__item" href="#">Кто мы</a>
+              </li>
+              <li>
+                <a class="navigation__item" href="#">Наши марки</a>
+              </li>
+              <li>
+                <a class="navigation__item navigation__item--current" href="reference.html">Референс</a>
+              </li>
+              <li>
+                <a class="navigation__item" href="#">Новости и&nbsp;события</a>
+              </li>
+              <li>
+                <a class="navigation__item" href="#">Контакты</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="navigation__footer">
+        <h5 class="navigation__footer-phone">(812) 702-42-42</h5>
+        <p>Санкт-Петербург</p>
+      </footer>
+    </nav>
+
+    <script type="text/javascript">
+      var menu = [
+        { "id": "1",  "id_parent": "root", "title": "Компания Элита", "url": "#", "sort": "0" },
+        { "id": "2",  "id_parent": "root", "title": "Каталог", "url": "#", "sort": "1" },
+        { "id": "3",  "id_parent": "root", "title": "Проектировщикам", "url": "#", "sort": "2" },
+        { "id": "4",  "id_parent": "root", "title": "Карьера в&nbsp;Элите", "url": "#", "sort": "3" },
+
+          { "id": "5",  "id_parent": "1", "title": "Что мы&nbsp;делаем", "url": "#", "sort": "0" },
+
+            { "id": "11", "id_parent": "5", "title": "Проектирование", "url": "#", "sort": "0" },
+            { "id": "12", "id_parent": "5", "title": "Производство", "url": "#", "sort": "1" },
+
+              { "id": "17", "id_parent": "12", "title": "Заводы", "url": "#", "sort": "0"},
+              { "id": "18", "id_parent": "12", "title": "Продукция", "url": "#", "sort": "1" },
+              { "id": "19", "id_parent": "12", "title": "Стандарты качества и&nbsp;сертификация", "url": "#", "sort": "2" },
+              { "id": "20", "id_parent": "12", "title": "Диспетчеризация", "url": "#", "sort": "3" },
+              { "id": "21", "id_parent": "12", "title": "Логистика", "url": "#", "sort": "4" },
+
+            { "id": "13", "id_parent": "5", "title": "Поставки", "url": "#", "sort": "2" },
+
+              { "id": "32", "id_parent": "13", "title": "Поставки туда", "url": "#", "sort": "0" },
+              { "id": "33", "id_parent": "13", "title": "Поставки оттуда", "url": "#", "sort": "1" },
+              { "id": "34", "id_parent": "13", "title": "Поставки не туда", "url": "#", "sort": "2" },
+              { "id": "35", "id_parent": "13", "title": "Поставки из ниоткуда", "url": "#", "sort": "3" },
+
+            { "id": "14", "id_parent": "5", "title": "Строительно-монтажные работы", "url": "#", "sort": "3" },
+            { "id": "15", "id_parent": "5", "title": "Пусконаладочные работы", "url": "#", "sort": "4" },
+            { "id": "16", "id_parent": "5", "title": "Сервисное обслуживание", "url": "#", "sort": "5" },
+
+          { "id": "6",  "id_parent": "1", "title": "Кто мы", "url": "#", "sort": "1" },
+          { "id": "7",  "id_parent": "1", "title": "Наши марки", "url": "#", "sort": "2" },
+
+            { "id": "22", "id_parent": "7", "title": "Antarus", "url": "#", "sort": "0" },
+            { "id": "23", "id_parent": "7", "title": "Fortus", "url": "#", "sort": "1" },
+            { "id": "24", "id_parent": "7", "title": "Биогард", "url": "#", "sort": "2" },
+            { "id": "25", "id_parent": "7", "title": "HitermBox", "url": "#", "sort": "3" },
+            { "id": "26", "id_parent": "7", "title": "Gross", "url": "#", "sort": "4" },
+            { "id": "27", "id_parent": "7", "title": "Akito", "url": "#", "sort": "5" },
+            { "id": "28", "id_parent": "7", "title": "Barus", "url": "#", "sort": "6" },
+            { "id": "29", "id_parent": "7", "title": "Амперус", "url": "#", "sort": "7" },
+            { "id": "30", "id_parent": "7", "title": "Meterus", "url": "#", "sort": "8" },
+            { "id": "31", "id_parent": "7", "title": "Умная вода", "url": "#", "sort": "9" },
+
+          { "id": "8",  "id_parent": "1", "title": "Референс", "url": "reference.html", "sort": "3", "isCurrent": "1" },
+          { "id": "9",  "id_parent": "1", "title": "Новости и&nbsp;события", "url": "#", "sort": "4" },
+          { "id": "10", "id_parent": "1", "title": "Контакты", "url": "#", "sort": "5" }
+      ]
+    </script>
+
+    <section class="page-header page--paddings">
+      <div class="page-header__logo">
+        <img class="logo" src="./assets/images/elita_logo.svg" alt="Компания Элита" title="Компания Элита">
+      </div>
+      <div class="page-header__content">
+        <p class="page-header__breadcrumbs">
+          <a href="#">Компания Элита</a>
+        </p>
+        <h1>Референс</h1>
+      </div>
+    </section>
+
+    <main class="page-wrapper">
+
+      <!-- Страница -->
+      <section class="page page--paddings">
+        <article class="reference" id="reference">
+          <div class="reference-block">
+            <h2 class="reference-block__header">2022</h2>
+            <div class="reference-grid">
+              <a class="reference-card" style="background-color: #00254F; background-image: url('./img/bg/ref05.jpg')" href="#">
+                <h5 class="reference-card__seen icon-bg icon__seen">2633</h5>
+                <h3 class="reference-card__header">Агропромышлен&shy;ный холдинг «Великолукский мясокомбинат»</h3>
+                <p class="reference-card__description">г.&nbsp;Великие Луки, Новгородская&nbsp;обл.</p>
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
+      <!-- / Страница -->
+
+      <script type="text/javascript">
+        var reference = [
+          { "id": "1",
+            "title": "Агропромышлен&shy;ный холдинг «Великолукский мясокомбинат»",
+            "bghex": "#00254F",
+            "img": "./img/bg/ref05.jpg",
+            "date_created": "2022-10-13 22:16:15",
+            "seen": "2633",
+            "url": "velikolukskij_myasokombinat",
+            "place": "г. Великие Луки, Новгородская обл.",
+          },
+          { "id": "2",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref02.jpg",
+            "date_created": "2021-10-12 11:16:15",
+            "seen": "1231",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "3",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref03.jpg",
+            "date_created": "2020-10-12 11:16:15",
+            "seen": "1767",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "4",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref04.jpg",
+            "date_created": "2020-12-15 11:16:15",
+            "seen": "1112",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "5",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref01.jpg",
+            "date_created": "2021-09-12 11:16:15",
+            "seen": "32",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "6",
+            "title": "Название объекта",
+            "bghex": "#00254F",
+            "img": "./img/bg/ref03.jpg",
+            "date_created": "2021-01-17 22:16:15",
+            "seen": "633",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "7",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref02.jpg",
+            "date_created": "2022-10-12 11:16:15",
+            "seen": "1231",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "8",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref03.jpg",
+            "date_created": "2022-10-12 11:16:15",
+            "seen": "1767",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "9",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref04.jpg",
+            "date_created": "2022-10-12 11:16:15",
+            "seen": "1112",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          },
+          { "id": "10",
+            "title": "Название объекта",
+            "bghex": "#CCFFCC",
+            "img": "./img/bg/ref06.jpg",
+            "date_created": "2022-10-12 11:16:15",
+            "seen": "32",
+            "url": "newton_live",
+            "place": "г. Город объекта",
+          }
+        ]
+      </script>
+
+      <!-- Панель фильтров -->   
+      <!-- <aside class="sidepanel">
+        <article>
+          <h2>Боковушка</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </article>
+        <div></div>
+      </aside> -->
+      <!-- / Панель фильтров -->
+
+    </main>
+
+    <!-- Скрипты -->
+    <script src="./assets/scripts/vue_navigation.js" charset="utf-8"></script>
+    <script src="./assets/scripts/vue_controls.js" charset="utf-8"></script>
+
+    <script src="./assets/scripts/vue_reference.js" charset="utf-8"></script>
+  </body>
+</html>

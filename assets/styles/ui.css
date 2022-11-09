@@ -1,0 +1,38 @@
+/*
+--- UI icons defaults
+*/
+
+.icon {
+  width: var(--gap-quart);
+  height: var(--gap-quart);
+
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: var(--gap-quart);
+}
+
+.icon-bg {
+  line-height: var(--gap-quart);
+  padding-left: var(--gap-third);
+
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: var(--gap-quart);
+}
+
+
+.icon__seen { background-image: url('../images/ui_icons.svg#eye') }
+.icon__spinner { background-image: url('../images/ui_icons.svg#spinner') }
+
+/*
+--- UI animations
+*/
+
+.icon--spin {
+  animation: 1s cubic-bezier(.2,.4,.8,.6) spin infinite;
+}
+
+  @keyframes spin {
+    from { transform: rotate(0deg) }
+    to { transform: rotate(360deg) }
+  }

@@ -1,0 +1,64 @@
+/* Settings */
+:root {
+  --offset: var(--gap);
+  --max_width: inherit;
+  --columns: 3;
+  --gutter: var(--gap);
+  --baseline: 3rem;
+  --baseline-offset: 0;
+  --color-col: rgba(255, 0, 0, 0.1);
+  --color-base: rgba(255, 0, 0, 0.3);
+  --offset-left: var(--menu);
+  /* --offset-left: 0px; */
+}
+
+@media (max-width: 1600px) {
+  :root {
+    --offset-left: 0px;
+  }
+}
+
+/* Helper variables */
+:root {
+  --repeating-width: calc(100% / var(--columns));
+  --column-width: calc((100% / var(--columns)) - var(--gutter));
+  --background-width: calc(100% + var(--gutter));
+  --background-columns: repeating-linear-gradient(
+    to right,
+    var(--color-col),
+    var(--color-col) var(--column-width),
+    transparent var(--column-width),
+    transparent var(--repeating-width)
+  );
+  --background-baseline: repeating-linear-gradient(
+    to bottom,
+    var(--color-base),
+    var(--color-base) 1px,
+    transparent 1px,
+    transparent var(--baseline)
+  );
+}
+
+/* Styling */
+html {
+  position: relative;
+}
+
+html::before {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: var(--offset-left);
+  margin-right: auto;
+  margin-left: auto;
+  width: calc(100% - (2 * var(--offset)) - var(--offset-left));
+  max-width: var(--max_width);
+  min-height: 100%;
+  content: '';
+  background-image: var(--background-columns), var(--background-baseline);
+  background-size: var(--background-width) 100%;
+  background-position: 0 var(--baseline-offset);
+  background-position: 0 0;
+  z-index: 10;
+  pointer-events: none;
+
+  transition: left 0.5s ease, width 0.5s ease;
+}

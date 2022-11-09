@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <view id="aflink" viewBox="0 0 48 24"/>
+    <path fill="#7F7F7F" fill-opacity="0.4" d="M12.5 10.6213L9.43934 7.56065L11.5607 5.43933L18.1213 12L11.5607 18.5607L9.43934 16.4393L12.5 13.3787C12.5 13.3787 11.5 13.5 10 13.5C8.5 13.5 0 13.5 0 13.5V10.5C0 10.5 8.5 10.5 10 10.5C11.5 10.5 12.5 10.6213 12.5 10.6213Z"/>
+
+  <view id="aflink_surface" viewBox="0 0 48 24"/>
+    <path fill="#FFFFFF" fill-opacity="0.4" d="M12.5 10.6213L9.43934 7.56065L11.5607 5.43933L18.1213 12L11.5607 18.5607L9.43934 16.4393L12.5 13.3787C12.5 13.3787 11.5 13.5 10 13.5C8.5 13.5 0 13.5 0 13.5V10.5C0 10.5 8.5 10.5 10 10.5C11.5 10.5 12.5 10.6213 12.5 10.6213Z"/>
+
+  <view id="ablink" viewBox="0 24 48 24"/>
+    <path fill="#7F7F7F" fill-opacity="0.4" d="M35.5 37.3787L38.5607 40.4393L36.4393 42.5607L29.8787 36L36.4393 29.4393L38.5607 31.5607L35.5 34.6213C35.5 34.6213 36.5 34.5 38 34.5C39.5 34.5 48 34.5 48 34.5L48 37.5C48 37.5 39.5 37.5 38 37.5C36.5 37.5 35.5 37.3787 35.5 37.3787Z"/>
+
+  <view id="sflink" viewBox="0 48 48 24"/>
+    <path fill="none" stroke="#7F7F7F" stroke-opacity="0.4" stroke-width="3" d="M9 53L16 60L9.4375 67"/>
+
+  <view id="sflink_surface" viewBox="0 48 48 24"/>
+    <path fill="none" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="3" d="M9 53L16 60L9.4375 67"/>
+
+  <view id="sblink" viewBox="0 72 48 24"/>
+    <path fill="none" stroke="#7F7F7F" stroke-opacity="0.4" stroke-width="3" d="M39 91L32 84L38.5625 77"/>
+</svg>
