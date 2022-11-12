@@ -15,34 +15,37 @@ var reference = new Vue ({
             <h5 class="reference-card__seen icon-bg icon__seen" v-html="object.seen"></h5>
             <h3 class="reference-card__header" v-html="object.title"></h3>
             <p class="reference-card__description" v-html="object.place"></p>
-          </a>
-        </div>
+          </a>         
+        </div>         
       </div>
-      <div v-show="this.loadOnce" class="reference-loader" @click="loadNext">
-        <div class="reference-loader__container" id="refloader">
+      <div v-show="loadOnce" class="reference-loader" id="refloader">
+        <div class="reference-loader__container">
           <div class="icon icon__spinner icon--spin"></div>
         </div>
-      </div>
+      </div>      
     </article>
   `,
   data: {
     sortBy: 'date',
     isReady: true,
-    reference: JSON.parse(JSON.stringify(window.reference)) || [],
-    // { "id", "title", "bghex", "img", "date_created", "seen": "1231", "url", "place" }
+    referenceObjects: {},
+    // { "id": { "id", "title", "bghex", "img", "date_created", "seen", "url", "place" } }
     loadOnce: true,
     observer: null
+  },
+  created() {
+    let initialReference = JSON.parse(JSON.stringify(window.reference)) || [];
+    this.pushObjects(initialReference);
   },
   mounted() {
     this.observer = new IntersectionObserver(
       this.loadNext,
       {
-        root: document.querySelector('#reference'),
-        threshold: 1.0,
+        root: null, 
+        threshold: 1
       }
     );
-
-    this.observer.observe(document.querySelector('#refloader'))
+    this.observer.observe(document.querySelector('#refloader'));    
   },
   destroyed() {
     this.observer.disconnect();
@@ -51,15 +54,15 @@ var reference = new Vue ({
     sortByYear() {
       let getByYear = {};
 
-      for (let i = 0; i < this.reference.length; i++) {
-        let object = this.reference[i];
+      for (const id in this.referenceObjects) {
+        let object = this.referenceObjects[id];
         const objectDate = new Date(object.date_created);
         const objectYear = objectDate.getFullYear();
         if (!getByYear.hasOwnProperty(objectYear)) {
           getByYear[objectYear] = { "title": objectYear, "objects": new Array };
         };
         object.style = 'background-color: ' + object.bghex + '; background-image: url(\"' + object.img + '\");';
-        getByYear[objectYear].objects.push(object);
+        getByYear[objectYear].objects.push(object);        
       }
 
       let sortByYear = Object.keys(getByYear).sort((a, b) => { return b - a });
@@ -73,6 +76,12 @@ var reference = new Vue ({
     },
   },
   methods: {
+    pushObjects(objectsArray) {
+      for (let i = 0; i < objectsArray.length; i++) {
+        const {id} = objectsArray[i];
+        this.$set(this.referenceObjects, id, {...objectsArray[i]})
+      }
+    },
     loadNext() {
       let add = [
         { "id": "11",
@@ -166,15 +175,20 @@ var reference = new Vue ({
           "place": "г. Город объекта",
         }
       ];
-      
+ 
       let action = () => {
-        this.reference.push(...add);
-        this.loadOnce = !this.loadOnce;
-        this.observer.disconnect();
+        // Имитация ответа
+        console.log('RS', add);
+        this.pushObjects(add);
+        this.loadOnce = false;
       }
 
-      if (this.loadOnce)
-        setTimeout(action, 3000)
+      if (this.loadOnce) {
+        // Имитация запроса
+        console.log('RQ', { section: 'reference', action:'list', limit: 10, offset: 10 });
+        setTimeout(action, 3000);
+        this.observer.disconnect();
+      }
     }
   }
 })

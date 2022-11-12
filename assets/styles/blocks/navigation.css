@@ -121,7 +121,7 @@
         position: relative;
         /* opacity: 0;
         visibility: hidden; */
-        background-image: url("../../images/ui_nav.svg#sblink");
+        background-image: url("../../images/ui_navigation.svg#sblink");
         background-repeat: no-repeat;
         background-position: -0.75rem 50%;
         background-size: 3rem 1.5rem;
@@ -142,7 +142,7 @@
 
       .navigation__link {
         padding: 0.75rem var(--gap-third);
-        background-image: url("../../images/ui_nav.svg#aflink");
+        background-image: url("../../images/ui_navigation.svg#aflink");
         background-repeat: no-repeat;
         background-position: 100% 50%;
         background-size: 3rem 1.5rem;
@@ -209,7 +209,7 @@
         }
 
         .navigation__item-parent {
-          background-image: url("../../images/ui_nav.svg#sflink");
+          background-image: url("../../images/ui_navigation.svg#sflink");
           background-repeat: no-repeat;
           background-position: 100% 50%;
           background-size: 3rem 1.5rem;
@@ -227,7 +227,7 @@
         }
 
         .navigation__link--current{
-          background-image: url("../../images/ui_nav.svg#aflink_surface");
+          background-image: url("../../images/ui_navigation.svg#aflink_surface");
         }
 
   .navigation__footer {

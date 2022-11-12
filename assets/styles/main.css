@@ -255,6 +255,5 @@ body {
   position: absolute;
   left: 100%;
   min-width: calc(33.3333% - 1.3333*var(--gap));
-  background-color: rgba(0,0,255,0.1);
   padding-right: var(--gap);
 }
