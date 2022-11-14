@@ -1,4 +1,4 @@
-var reference = new Vue ({
+var referenceModule = new Vue ({
   name: 'reference',
   el: '#reference',
   template: `
@@ -34,7 +34,7 @@ var reference = new Vue ({
     observer: null
   },
   created() {
-    let initialReference = JSON.parse(JSON.stringify(window.reference)) || [];
+    let initialReference = JSON.parse(JSON.stringify(window.referenceData)) || [];
     this.pushObjects(initialReference);
   },
   mounted() {

@@ -1,4 +1,4 @@
-var controls = new Vue ({
+var controlsModule = new Vue ({
   name: 'controls',
   el: '#controls',
   template: `
@@ -17,21 +17,21 @@ var controls = new Vue ({
   },
   computed: {
     menuClass() {
-      return navigation.isActive ? 'button--transform': ''
+      return navigationModule.isActive ? 'button--transform': ''
     },
     isNavigation() {
-      return !!navigation.isReady
+      return !!navigationModule.isReady
     },
     currentLevel() {
       if (this.isNavigation)
-        if (navigation.isActive) return navigation.level;
+        if (navigationModule.isActive) return navigationModule.level;
       return false
     }
   },
   methods: {
     menuToggle() {
       if (this.isNavigation) {
-        navigation.navigationToggle();
+        navigationModule.navigationToggle();
       }
     }
   }

@@ -61,7 +61,7 @@ Vue.component('navigation-list', {
   }
 });
 
-var navigation = new Vue ({
+var navigationModule = new Vue ({
   name: 'navigation',
   el: '#navigation',
   template: `
@@ -101,7 +101,7 @@ var navigation = new Vue ({
     isActive: false,
     level: 1,
     currentItem: null,
-    menu: JSON.parse(JSON.stringify(window.menu)) || []
+    menu: JSON.parse(JSON.stringify(window.menuData)) || []
   },
   created() {
     this.currentItem = this.getCurrent(this.menuTree);
@@ -205,7 +205,7 @@ var navigation = new Vue ({
     },
     navigationToggle() {
       if (this.isActive) {
-        this.menu = JSON.parse(JSON.stringify(window.menu));
+        this.menu = JSON.parse(JSON.stringify(window.menuData));
         this.activateParents(this.currentItem);
         this.level = this.currentItem.level;
       }
