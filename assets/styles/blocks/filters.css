@@ -1,0 +1,29 @@
+.filters {
+  height: 100%;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: calc(33.3333% - 1.3333 * var(--gap));
+  padding-right: var(--gap);
+}
+
+.filters--slided {
+  left: 66.6666%;
+}
+
+  .filters__header {
+    margin: 0 calc(-1 * var(--gap)) 0 calc(-1 * var(--gap-third));
+    padding: var(--gap-third) var(--gap-third);
+    line-height: var(--gap-quart);
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    background-color: var(--panel-bg);
+    backdrop-filter: blur(10px);
+  }
+
+  .filters__container {
+    position: sticky;
+    top: calc(2 * var(--gap-third) + var(--gap-quart));
+    padding-bottom: var(--gap-third);
+  }

@@ -18,6 +18,7 @@
 
     <!-- Стиль только для страницы референса -->
     <link rel="stylesheet" href="./assets/styles/blocks/reference.css">
+    <link rel="stylesheet" href="./assets/styles/blocks/filters.css">
 
     <!-- Фреймворки. Есть на всех страницах -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -250,23 +251,23 @@
       </script>
 
       <!-- Панель фильтров -->   
-      <aside class="sidepanel">
-        <article id="filters">
-          <h2>Фильтры</h2>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum beatae modi eligendi vel accusamus placeat veritatis esse quas consectetur nobis inventore repudiandae odit quod voluptatem, voluptates laudantium maxime quis laborum?</p>
-        </article>
-
-        <script type="text/javascript">
-          var filtersData = [
-            { "id": "1", "title": "Тепловые пункты", "sort": "1" },
-            { "id": "2", "title": "Насосные установки", "sort": "2" },
-            { "id": "3", "title": "Очистные сооружения", "sort": "3" },
-            { "id": "4", "title": "КНС", "sort": "4" },
-            { "id": "5", "title": "Водоподготовка", "sort": "5" },
-            { "id": "6", "title": "Коллекторные узлы", "sort": "6" }
-          ]
-        </script>        
+      <aside class="filters" id="filters">
+        <h3 class="filters__header">Фильтры</h3>
+        <div class="filters__container">
+          <p>В этот блок нужно рендерить фильтры — перечень чекбоксов</p>
+        </div>
       </aside>
+
+      <script type="text/javascript">
+        var filtersData = [
+          { "id": "1", "title": "Тепловые пункты", "sort": "1" },
+          { "id": "2", "title": "Насосные установки", "sort": "2" },
+          { "id": "3", "title": "Очистные сооружения", "sort": "3" },
+          { "id": "4", "title": "КНС", "sort": "4" },
+          { "id": "5", "title": "Водоподготовка", "sort": "5" },
+          { "id": "6", "title": "Коллекторные узлы", "sort": "6" }
+        ]
+      </script>
       <!-- / Панель фильтров -->
 
     </main>

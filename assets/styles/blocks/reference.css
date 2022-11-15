@@ -3,12 +3,17 @@
 */
 
 .reference {
+  position: relative;
   --overlay-start: rgba(12, 25, 37, 0.1);
   --overlay-end: rgba(12, 25, 37, 0.5);
 }
 
+  .reference--slided {
+    left: calc(-33.3333% - 1.3333 * var(--gap));
+  }
+
 .reference-block {
-  /* margin-bottom: var(--gap); */
+  margin-bottom: 0;
 }
 
 .reference-block__header {

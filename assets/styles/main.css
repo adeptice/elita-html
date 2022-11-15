@@ -13,6 +13,7 @@
   --panel-bg: rgba(255,255,255,0.85);
 
   --gap: 9rem;
+  --gap-half:  calc(var(--gap)/2);
   --gap-third: calc(var(--gap)/3);
   --gap-quart: calc(var(--gap)/4);
 
@@ -173,6 +174,7 @@ body {
   box-sizing: border-box;
   padding-left: var(--menu);
   margin: 0;
+  /* overflow-x: hidden; */
 
   transition: padding-left 0.5s ease;
 }
@@ -183,7 +185,9 @@ body {
   }
 }
 
-.logo { margin: -4.5% -9.5% 0 }
+.logo {
+  margin: -4.5% -9.5% 0
+}
 
 .page--paddings {
   padding-left: var(--gap);
@@ -191,10 +195,8 @@ body {
 }
 
 .page-wrapper {
-  display: flex;
-  flex-direction: row;
   width: 100%;
-  /* overflow-x: auto; */
+  position: relative;
 }
 
 /*
@@ -243,17 +245,6 @@ body {
 .page {
   display: block;
   box-sizing: border-box;
-  min-width: 100%;
+  width: 100%;
   background-color: var(--surface);
-}
-
-/*
---- Aside panel
-*/
-
-.sidepanel {
-  position: absolute;
-  left: 100%;
-  min-width: calc(33.3333% - 1.3333*var(--gap));
-  padding-right: var(--gap);
 }
