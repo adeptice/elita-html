@@ -16,6 +16,8 @@
   --gap-half:  calc(var(--gap)/2);
   --gap-third: calc(var(--gap)/3);
   --gap-quart: calc(var(--gap)/4);
+  --gap-sext: calc(var(--gap)/6);
+  --gap-dec: calc(var(--gap)/10);
 
   --logo: 6rem;
   --menu: calc(var(--gap) + var(--logo) + var(--gap));

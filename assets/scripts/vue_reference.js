@@ -18,7 +18,7 @@ var referenceModule = new Vue ({
           </a>         
         </div>         
       </div>
-      <div v-show="loadOnce" class="reference-loader" id="refloader">
+      <div class="reference-loader" id="refloader">
         <div class="reference-loader__container">
           <div class="icon icon__spinner icon--spin"></div>
         </div>
@@ -31,31 +31,49 @@ var referenceModule = new Vue ({
     referenceObjects: {},
     // { "id": { "id", "title", "bghex", "img", "date_created", "seen", "url", "place" } }
     loadOnce: true,
-    observer: null
+    filtersStatus: false
   },
   created() {
-    let initialReference = JSON.parse(JSON.stringify(window.referenceData)) || [];
-    this.pushObjects(initialReference);
+    const initReferenceData = JSON.parse(JSON.stringify(window.referenceData)) || [];
+    this.storeObjects(initReferenceData);
   },
-  mounted() {
-    this.observer = new IntersectionObserver(
-      this.loadNext,
-      {
-        root: null, 
-        threshold: 1
-      }
-    );
-    this.observer.observe(document.querySelector('#refloader'));    
-  },
-  destroyed() {
-    this.observer.disconnect();
-  },
+  // mounted() {
+  //   this.observer = new IntersectionObserver(
+  //     this.loadNext,
+  //     {
+  //       root: null, 
+  //       threshold: 1
+  //     }
+  //   );
+  //   this.observer.observe(document.querySelector('#refloader'));    
+  // },
+  // destroyed() {
+  //   this.observer.disconnect();
+  // },
   computed: {
+    isFilters(){
+      return !!window.filtersModule || this.filtersStatus
+    },
+    filteredByTags() {
+      if (this.isFilters) {
+        const selected = filtersModule.selected;
+        if (selected.length > 0) {
+          const referenceArray = Object.entries(this.referenceObjects);
+          const filteredReferenceArray = referenceArray.filter( ([id, object])=> {
+            const tags = object.tags;
+            const arraysIntersection = selected.filter( x => tags.includes(x));
+            return (arraysIntersection.length === selected.length);
+          });
+          return filteredReferenceArray.reduce( (a, [id, object]) => ({ ...a, [id]: object}), {})
+        }
+      }
+      return this.referenceObjects
+    },
     sortByYear() {
       let getByYear = {};
 
-      for (const id in this.referenceObjects) {
-        let object = this.referenceObjects[id];
+      for (const id in this.filteredByTags) {
+        let object = this.filteredByTags[id];
         const objectDate = new Date(object.date_created);
         const objectYear = objectDate.getFullYear();
         if (!getByYear.hasOwnProperty(objectYear)) {
@@ -66,25 +84,40 @@ var referenceModule = new Vue ({
       }
 
       let sortByYear = Object.keys(getByYear).sort((a, b) => { return b - a });
-      sortByYear.forEach((year, index) => {
-        let yearBlock = getByYear[sortByYear[index]];
+      for (let i = 0; i < sortByYear.length; i++) {
+        let yearBlock = getByYear[sortByYear[i]];
         yearBlock.objects = yearBlock.objects.sort((a, b) => { return b.seen - a.seen });
-        sortByYear[index] = yearBlock;
-      });
+        sortByYear[i] = yearBlock;
+      }
 
       return sortByYear;
     },
   },
   methods: {
-    pushObjects(objectsArray) {
+    storeObjects(objectsArray) {
       for (let i = 0; i < objectsArray.length; i++) {
         const {id} = objectsArray[i];
         this.$set(this.referenceObjects, id, {...objectsArray[i]})
+      }      
+    },    
+    loadNext() {
+      if (this.loadOnce) {
+        // Имитация запроса
+        console.log('RQ', { section: 'reference', action:'list', limit: 10, offset: 10 });
+        
+        // Имитация ответа
+        this.getNextObjects()
+        .then( (response) => {
+          console.log('RS', response.data);
+          this.storeObjects(response.data);
+          this.loadOnce = false;
+          this.observer.disconnect();
+        })
       }
     },
-    loadNext() {
-      let add = [
-        { "id": "11",
+    async getNextObjects() {
+      const nextObjects = [
+        { "id": "386",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref05.jpg",
@@ -92,8 +125,9 @@ var referenceModule = new Vue ({
           "seen": "234",
           "url": "velikolukskij_myasokombinat",
           "place": "г. Великие Луки, Новгородская обл.",
+          "tags": ["1"]
         },
-        { "id": "12",
+        { "id": "385",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref02.jpg",
@@ -101,8 +135,9 @@ var referenceModule = new Vue ({
           "seen": "142",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["2"]
         },
-        { "id": "13",
+        { "id": "384",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref03.jpg",
@@ -110,8 +145,9 @@ var referenceModule = new Vue ({
           "seen": "212",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["3", "4"]
         },
-        { "id": "14",
+        { "id": "382",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref04.jpg",
@@ -119,8 +155,9 @@ var referenceModule = new Vue ({
           "seen": "789",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["4", "5"]
         },
-        { "id": "15",
+        { "id": "381",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref01.jpg",
@@ -128,8 +165,9 @@ var referenceModule = new Vue ({
           "seen": "32",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["5", "6"]
         },
-        { "id": "16",
+        { "id": "380",
           "title": "Название объекта",
           "bghex": "#00254F",
           "img": "./img/bg/ref03.jpg",
@@ -137,8 +175,9 @@ var referenceModule = new Vue ({
           "seen": "633",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["1", "6"]
         },
-        { "id": "17",
+        { "id": "379",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref02.jpg",
@@ -146,8 +185,9 @@ var referenceModule = new Vue ({
           "seen": "1231",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["1", "5"]
         },
-        { "id": "18",
+        { "id": "377",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref03.jpg",
@@ -155,8 +195,9 @@ var referenceModule = new Vue ({
           "seen": "1767",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["2", "4"]
         },
-        { "id": "19",
+        { "id": "376",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref04.jpg",
@@ -164,8 +205,9 @@ var referenceModule = new Vue ({
           "seen": "1112",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["2", "3"]
         },
-        { "id": "20",
+        { "id": "375",
           "title": "Название объекта",
           "bghex": "#CCFFCC",
           "img": "./img/bg/ref06.jpg",
@@ -173,22 +215,13 @@ var referenceModule = new Vue ({
           "seen": "32",
           "url": "newton_live",
           "place": "г. Город объекта",
+          "tags": ["6"]
         }
       ];
- 
-      let action = () => {
-        // Имитация ответа
-        console.log('RS', add);
-        this.pushObjects(add);
-        this.loadOnce = false;
-      }
 
-      if (this.loadOnce) {
-        // Имитация запроса
-        console.log('RQ', { section: 'reference', action:'list', limit: 10, offset: 10 });
-        setTimeout(action, 3000);
-        this.observer.disconnect();
-      }
+      return await new Promise( (resolve) => {
+        setTimeout(() => resolve({ status: 200, data: nextObjects }), Math.random() * 5000);
+      });
     }
   }
 })

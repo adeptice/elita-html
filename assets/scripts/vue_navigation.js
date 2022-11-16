@@ -97,11 +97,17 @@ var navigationModule = new Vue ({
     </nav>
   `,
   data: {
-    isReady: true,
     isActive: false,
     level: 1,
     currentItem: null,
     menu: JSON.parse(JSON.stringify(window.menuData)) || []
+  },
+  watch: {
+    level(value) {
+      if (!!window.controlsModule) {
+        controlsModule.menuLevel = value
+      }  
+    }
   },
   created() {
     this.currentItem = this.getCurrent(this.menuTree);
@@ -173,7 +179,7 @@ var navigationModule = new Vue ({
           for (let i = 0; i < this.menu.length; i++) {
             let $menu_record = this.menu[i];
             if ($menu_record.id === item.id) {
-              this.level = item.level + 1;
+              this.level = item.level + 1;              
               $menu_record.isActive = '1'
               this.$set(this.menu, i, $menu_record);
             } else if (($menu_record.id_parent !== 'root') && (!!+$menu_record.isActive) && (item.id_parent !== $menu_record.id)) {
@@ -193,7 +199,7 @@ var navigationModule = new Vue ({
         for (let i = 0; i < this.menu.length; i++) {
           let $menu_record = this.menu[i];
           if ($menu_record.id === item.id) {
-            this.level = item.level;
+            this.level = item.level;          
             delete $menu_record.isActive
             this.$set(this.menu, i, $menu_record);
             return true
@@ -209,8 +215,11 @@ var navigationModule = new Vue ({
         this.activateParents(this.currentItem);
         this.level = this.currentItem.level;
       }
-
+      
       this.isActive = !this.isActive;
+      if (!!window.controlsModule) {
+        controlsModule.isMenuActive = this.isActive
+      }      
     }
   }
 })

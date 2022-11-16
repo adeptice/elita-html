@@ -13,26 +13,27 @@ var controlsModule = new Vue ({
     </header>
   `,
   data: {
-    isReady: true
+    menuLevel: 1,
+    isMenuActive: false
   },
   computed: {
     menuClass() {
-      return navigationModule.isActive ? 'button--transform': ''
-    },
-    isNavigation() {
-      return !!navigationModule.isReady
+      return (window.navigationModule && navigationModule.isActive) || this.isMenuActive
+        ? 'button--transform'
+        : ''
     },
     currentLevel() {
-      if (this.isNavigation)
-        if (navigationModule.isActive) return navigationModule.level;
-      return false
+      if ((window.navigationModule && navigationModule.isActive) || this.isMenuActive) {
+        return this.menuLevel;
+      }        
+      return false      
     }
   },
   methods: {
     menuToggle() {
-      if (this.isNavigation) {
+      if (window.navigationModule) {
         navigationModule.navigationToggle();
-      }
+      }      
     }
   }
-})
+});

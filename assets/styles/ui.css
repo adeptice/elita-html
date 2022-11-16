@@ -3,13 +3,20 @@
 */
 
 .icon {
-  width: var(--gap-quart);
-  height: var(--gap-quart);
-
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: var(--gap-quart);
 }
+
+  .icon--m {
+    width: var(--gap-sext);
+    height: var(--gap-sext);
+  }
+
+  .icon--l {
+    width: var(--gap-quart);
+    height: var(--gap-quart);
+  }
 
 .icon-bg {
   line-height: var(--gap-quart);
@@ -23,6 +30,8 @@
 
 .icon__seen { background-image: url('../images/ui_icons.svg#eye') }
 .icon__spinner { background-image: url('../images/ui_icons.svg#spinner') }
+
+.icon__svg-sprite { display: none; }
 
 /*
 --- UI animations

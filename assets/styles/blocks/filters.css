@@ -26,4 +26,41 @@
     position: sticky;
     top: calc(2 * var(--gap-third) + var(--gap-quart));
     padding-bottom: var(--gap-third);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-dec);
   }
+
+    .filters__option {
+      display: flex;
+      flex-direction: row;
+      gap: var(--gap-dec);
+      align-items: center;
+      cursor: pointer;
+    }
+
+      .filters__option * {
+        margin: 0;
+      }
+
+    .filters__option input[type=checkbox] {
+      display: none;
+    }
+
+    .filters__option .icon {
+      stroke: var(--divider);
+      color: transparent;
+      fill: none;
+
+      transition: stroke 0.25s ease, color 0.25s ease;
+    }
+
+    .filters__option input[type=checkbox]:checked ~ .icon {
+      stroke: var(--color-blue);
+      color: var(--color-blue);
+    }
+
+    .filters__option:hover .icon,
+    .filters__option:hover input[type=checkbox]:checked ~ .icon  {
+      stroke: var(--rich-text)
+    }
