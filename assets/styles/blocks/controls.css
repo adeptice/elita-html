@@ -29,14 +29,6 @@
   width: var(--gap-quart);
   height: var(--gap-quart);
   cursor: pointer;
-  margin: var(--gap-third);
-}
-
-
-/* Menu + transform */
-.button__menu {
-  position: relative;
-  left: 0;
   transform: scale(1);
 
   transition: left 0.5s ease,
@@ -45,8 +37,16 @@
               visibility 0.5s;
 }
 
-.button__menu:hover {
-  transform: scale(1.25);
+  .button:hover {
+    transform: scale(1.25);
+  }
+
+/* Menu + transform */
+
+.button__menu {  
+  position: relative;
+  left: 0;
+  margin: var(--gap-third);
 }
 
 .button__menu[data-level='0'],
@@ -119,3 +119,22 @@
       .button--transform svg path:last-child {
         transform: rotate(-45deg) translate(3px, 3px) scaleX(1.25);
       }
+
+/* Filters + transform */
+
+.button__filters {
+  position: absolute;
+  z-index: 10;
+  left: calc(var(--gap-third) - var(--gap) - var(--gap-quart));
+
+  fill: none;
+  stroke: var(--rich-text);
+}
+
+  .button__filters:hover {
+    stroke: var(--rich-text);
+  }
+  
+.filters--slided .button__filters {
+  left: calc(100% - var(--gap-third) - var(--gap-quart)); 
+}
