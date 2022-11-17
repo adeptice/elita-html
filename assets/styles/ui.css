@@ -10,11 +10,13 @@
 
   .icon--m {
     width: var(--gap-sext);
+    min-width: var(--gap-sext);
     height: var(--gap-sext);
   }
 
   .icon--l {
     width: var(--gap-quart);
+    min-width: var(--gap-sext);
     height: var(--gap-quart);
   }
 

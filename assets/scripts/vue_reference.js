@@ -2,7 +2,7 @@ var referenceModule = new Vue ({
   name: 'reference',
   el: '#reference',
   template: `
-    <article class="reference" id="reference">
+    <article class="reference" :class="referenceClass" id="reference">
       <div class="reference-block" v-for="block in sortByYear" :key="block.title">
         <h2 class="reference-block__header">{{ block.title }}</h2>
         <div class="reference-grid">
@@ -18,9 +18,9 @@ var referenceModule = new Vue ({
           </a>         
         </div>         
       </div>
-      <div class="reference-loader" id="refloader">
+      <div v-show="loadOnce" class="reference-loader" id="reference-loader">
         <div class="reference-loader__container">
-          <div class="icon icon__spinner icon--spin"></div>
+          <div class="icon icon__spinner icon--l icon--spin"></div>
         </div>
       </div>      
     </article>
@@ -29,31 +29,29 @@ var referenceModule = new Vue ({
     sortBy: 'date',
     isReady: true,
     referenceObjects: {},
-    // { "id": { "id", "title", "bghex", "img", "date_created", "seen", "url", "place" } }
     loadOnce: true,
-    filtersStatus: false
+    filtersStatus: false,
+    observer: null,
+    isFiltersOpened: false
   },
   created() {
     const initReferenceData = JSON.parse(JSON.stringify(window.referenceData)) || [];
     this.storeObjects(initReferenceData);
   },
-  // mounted() {
-  //   this.observer = new IntersectionObserver(
-  //     this.loadNext,
-  //     {
-  //       root: null, 
-  //       threshold: 1
-  //     }
-  //   );
-  //   this.observer.observe(document.querySelector('#refloader'));    
-  // },
-  // destroyed() {
-  //   this.observer.disconnect();
-  // },
+  mounted() {
+    this.observer = new IntersectionObserver(this.observerController);
+    this.observer.observe(document.querySelector('#reference-loader'));   
+  },
+  destroyed() {
+    this.observer.disconnect();
+  },
   computed: {
     isFilters(){
       return !!window.filtersModule || this.filtersStatus
     },
+    referenceClass() {
+      return this.isFiltersOpened ? 'reference--slided' : ''
+    },    
     filteredByTags() {
       if (this.isFilters) {
         const selected = filtersModule.selected;
@@ -68,6 +66,9 @@ var referenceModule = new Vue ({
         }
       }
       return this.referenceObjects
+    },
+    objectsVisible() {
+      return Object.keys(this.filteredByTags).length
     },
     sortByYear() {
       let getByYear = {};
@@ -84,6 +85,7 @@ var referenceModule = new Vue ({
       }
 
       let sortByYear = Object.keys(getByYear).sort((a, b) => { return b - a });
+
       for (let i = 0; i < sortByYear.length; i++) {
         let yearBlock = getByYear[sortByYear[i]];
         yearBlock.objects = yearBlock.objects.sort((a, b) => { return b.seen - a.seen });
@@ -97,23 +99,29 @@ var referenceModule = new Vue ({
     storeObjects(objectsArray) {
       for (let i = 0; i < objectsArray.length; i++) {
         const {id} = objectsArray[i];
-        this.$set(this.referenceObjects, id, {...objectsArray[i]})
-      }      
-    },    
-    loadNext() {
-      if (this.loadOnce) {
-        // Имитация запроса
-        console.log('RQ', { section: 'reference', action:'list', limit: 10, offset: 10 });
-        
-        // Имитация ответа
-        this.getNextObjects()
-        .then( (response) => {
-          console.log('RS', response.data);
-          this.storeObjects(response.data);
-          this.loadOnce = false;
-          this.observer.disconnect();
-        })
+        this.$set(this.referenceObjects, id, {...objectsArray[i]});
       }
+    },    
+    observerController(entries) {
+      entries.forEach( (entry) => {
+        if (entry.isIntersecting && this.loadOnce) {
+          this.observer.disconnect();
+
+          // Имитация запроса
+          let letter = {section: 'reference', action:'list', limit: 10, offset: this.objectsVisible};
+          console.log('RQ', letter);
+          
+          // Имитация ответа
+          this.getNextObjects(letter)
+          .then( (response) => {
+            if (response.status === 200) {
+              console.log('RS', response.data);
+              this.storeObjects(response.data);
+              this.loadOnce = false;
+            }
+          })
+        }        
+      });
     },
     async getNextObjects() {
       const nextObjects = [
@@ -220,7 +228,7 @@ var referenceModule = new Vue ({
       ];
 
       return await new Promise( (resolve) => {
-        setTimeout(() => resolve({ status: 200, data: nextObjects }), Math.random() * 5000);
+        setTimeout(() => resolve({ status: 200, data: nextObjects }), Math.random() * 2000);
       });
     }
   }

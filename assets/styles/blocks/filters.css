@@ -5,13 +5,16 @@
   top: 0;
   width: calc(33.3333% - 1.3333 * var(--gap));
   padding-right: var(--gap);
+
+  transition: left 0.5s ease;
 }
 
 .filters--slided {
-  left: 66.6666%;
+  left: calc(66.6666% + 0.3333*var(--gap));
 }
 
   .filters__header {
+    width: 100%;
     margin: 0 calc(-1 * var(--gap)) 0 calc(-1 * var(--gap-third));
     padding: var(--gap-third) var(--gap-third);
     line-height: var(--gap-quart);
@@ -21,6 +24,10 @@
     background-color: var(--panel-bg);
     backdrop-filter: blur(10px);
   }
+
+    .filters__header * {
+      margin: 0
+    }
 
   .filters__container {
     position: sticky;
